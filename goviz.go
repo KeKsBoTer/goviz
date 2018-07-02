@@ -15,8 +15,8 @@ type options struct {
     Depth      int    `short:"d" long:"depth" default:"128" description:"max plot depth of the dependency tree"`
     Reversed   string `short:"f" long:"focus" description:"focus on the specific module"`
     SeekPath   string `short:"s" long:"search" default:"" description:"top directory of searching"`
-    PlotLeaf   bool   `short:"l" long:"leaf" default:"false" description:"whether leaf nodes are plotted"`
-    UseMetrics bool   `short:"m" long:"metrics" default:"false" description:"display module metrics"`
+    PlotLeaf   bool   `short:"l" long:"leaf" description:"whether leaf nodes are plotted"`
+    UseMetrics bool   `short:"m" long:"metrics" description:"display module metrics"`
 }
 
 func getOptions() (*options, error) {
@@ -40,6 +40,7 @@ func errorf(format string, args ...interface{}) {
 func process() int {
     options, err := getOptions()
     if err != nil {
+        errorf(err.Error())
         return 1
     }
     factory := goimport.ParseRelation(
